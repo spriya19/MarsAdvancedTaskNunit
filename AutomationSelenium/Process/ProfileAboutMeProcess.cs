@@ -19,7 +19,6 @@ namespace AutomationSelenium.Process
         public ProfileAboutMeProcess()
         {
             profileAboutMeObj = new ProfileAboutMe();
-            jsonHelperObj = new Jsonhelper();
         }
         public void updateUserName()
         {
@@ -29,9 +28,7 @@ namespace AutomationSelenium.Process
             foreach(var profile in UserNameAvailabilityData) 
             {
                 string firstname = profile.firstname;
-                Console.WriteLine(firstname);
                 string lastname = profile.lastname;
-                Console.WriteLine(lastname);
                 profileAboutMeObj.usernameAvailabilityDetails(firstname, lastname);
                 string addedUserName = profileAboutMeObj.getVerifyUserName(); 
                 string expectedUsername = profile.firstname + " " + profile.lastname;
@@ -46,10 +43,8 @@ namespace AutomationSelenium.Process
             foreach (var profile in ProfileavailabilityData)
             {
                 string availability = profile.availability;
-                Console.WriteLine(availability);
                 profileAboutMeObj.addAndUpdateAvailabilityDetails(availability);
                 string addedAvailability = profileAboutMeObj.getAddedAvailability();
-                //string expectedAvailability = profile.availability;
                 Assert.AreEqual(addedAvailability, availability,"Actual availability and Expected availability do not match");
             }
         }
@@ -60,7 +55,6 @@ namespace AutomationSelenium.Process
             foreach (var profile in profileHourDataData)
             {
                 string hours = profile.hours;
-                Console.WriteLine(hours);
                 profileAboutMeObj.addAndUpdateHourDetails(hours);
                 string addedHours = profileAboutMeObj.getAddedHours();
                 Assert.AreEqual(addedHours, hours, "Actual availability and Expected availability do not match");
@@ -73,7 +67,6 @@ namespace AutomationSelenium.Process
             foreach (var profile in ProfileEarnTargetData)
             {
                 string earntarget = profile.earntarget;
-                Console.WriteLine(earntarget);
                 profileAboutMeObj.addAndUpdateAvailabilityTargetDetails(earntarget);
                 string addedEarnTarget = profileAboutMeObj.getAddedEarntarget();
                 Assert.AreEqual(addedEarnTarget, earntarget, "Actual availability and Expected availability do not match");

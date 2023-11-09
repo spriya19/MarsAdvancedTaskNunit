@@ -1,4 +1,5 @@
-﻿using AutomationSelenium.Process;
+﻿using AutomationSelenium.Pages.Components.ServiceListingOverView;
+using AutomationSelenium.Process;
 using AutomationSelenium.Utilities;
 using NUnit.Framework;
 using System;
@@ -14,18 +15,22 @@ namespace AutomationSelenium.Test
     {
         LoginProcess loginProcessObj;
         HomePageProcess homePageProcessObj;
+        ShareSkillAddComponent ShareSkillAddComponentObj;
         ShareskillProcess shareskillProcessObj;
         public ShareSkillTest() 
         {
             loginProcessObj = new LoginProcess();
             homePageProcessObj = new HomePageProcess();
+            ShareSkillAddComponentObj = new ShareSkillAddComponent();
             shareskillProcessObj = new ShareskillProcess();
         }
         [Test,Order(1)]
         public void AddShareSkill_Test()
         {
             loginProcessObj.doLogin();
-            homePageProcessObj.clickShareskill();
+            homePageProcessObj.clickOnProfileManageListing();
+            ShareSkillAddComponentObj.clearExistingdata();
+            homePageProcessObj.clickonManageShareSkillTab();
             shareskillProcessObj.addShareSkillDetails();
         }
         [Test,Order(2)]

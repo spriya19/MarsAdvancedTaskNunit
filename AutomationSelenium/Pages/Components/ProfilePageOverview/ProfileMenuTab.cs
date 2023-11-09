@@ -23,6 +23,7 @@ namespace AutomationSelenium.Pages.Components.ProfilePageOverview
         private IWebElement sharemanageListingTab;
         private IWebElement manageListing;
         private IWebElement editManageListing;
+        private IWebElement serviceShareskillTab;
         public void renderComponents()
         {
             try
@@ -64,6 +65,10 @@ namespace AutomationSelenium.Pages.Components.ProfilePageOverview
         {
             editManageListing = driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[8]/div/button[2]/i"));
         }
+        public void renderserviceShareSkillComponent() 
+        {
+            serviceShareskillTab = driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/section[1]/div/div[2]/a"));
+        }
         public void clickUserNameIcon()
         {
             Wait.WaitToBeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]//section[2]//div[2]//div[2]//div[1]/i", 12);
@@ -92,6 +97,7 @@ namespace AutomationSelenium.Pages.Components.ProfilePageOverview
         }
         public void clickDescripitionEditBtn()
         {
+            Thread.Sleep(2000);
             Wait.WaitToBeClickable(driver, "XPath", "(//i[@class='outline write icon'])[1]", 12);
            renderComponents();
             descriptionEditBtn.Click();
@@ -126,14 +132,22 @@ namespace AutomationSelenium.Pages.Components.ProfilePageOverview
         }
         public void clickProfileManageListing()
         {
+            Thread.Sleep(1000);
             renderManageListingComponent();
             manageListing.Click();
+            Wait.WaitToBeVisible(driver, "XPath", ".//i[@class='remove icon']", 20);
+
         }
         public void clickEditManageListing()
         {
             renderEditShareSkilComponent();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             editManageListing.Click();
+        }
+        public void ClickServiceShareskill()
+        {
+            renderserviceShareSkillComponent();
+            serviceShareskillTab.Click();
         }
     }
 }

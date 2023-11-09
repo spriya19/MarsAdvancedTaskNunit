@@ -1,4 +1,5 @@
-﻿using AutomationSelenium.Utilities;
+﻿using AutomationSelenium.Test_Model;
+using AutomationSelenium.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
@@ -43,19 +44,20 @@ namespace AutomationSelenium.Pages.Components.ProfilePageOverview
         {
             deletePopupMessage = driver.FindElement(By.XPath("//div[@class='ns-box ns-growl ns-effect-jelly ns-type-error ns-show']\r\n"));
         }
-        public void addAndUpdateDescriptionDetails(string textarea)
+        public void addAndUpdateDescriptionDetails(DescriptionTestModel data)
         {
+            Thread.Sleep(2000);
             renderDescriptionComponents();
             enterTextArea.Clear();
-            enterTextArea.SendKeys(textarea);
+            enterTextArea.SendKeys(data.textarea);
             Thread.Sleep(1000);
             saveBtn.Click();
         }
-        public void addNegativedes(string textarea)
+        public void addNegativedes(DescriptionTestModel data)
         {
             renderDescriptionComponents();
             enterTextArea.Clear();
-            enterTextArea.SendKeys(textarea);
+            enterTextArea.SendKeys(data.textarea);
             saveBtn.Click();
         }
         public string negativeDesMessage()
@@ -68,6 +70,7 @@ namespace AutomationSelenium.Pages.Components.ProfilePageOverview
         }
         public string getVerifyAddedDescription()
         {
+            Thread.Sleep(2000);
             renderDescriptionTestComponent();
             //Verify the description details
             return addedDescription.Text;
@@ -79,12 +82,12 @@ namespace AutomationSelenium.Pages.Components.ProfilePageOverview
             //Saving error or Success message
             return messageBox.Text;
         }
-        public void deleteDesc(string textarea)
+        public void deleteDesc(DescriptionTestModel data)
         {
             renderDescriptionComponents();
             enterTextArea.SendKeys(Keys.Control+"A");
             enterTextArea.SendKeys(Keys.Delete);
-            enterTextArea.SendKeys(textarea);
+            enterTextArea.SendKeys(data.textarea);
             Thread.Sleep(500);
             saveBtn.Click();
         }

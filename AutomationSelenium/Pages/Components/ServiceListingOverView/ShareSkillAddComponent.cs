@@ -36,6 +36,7 @@ namespace AutomationSelenium.Pages.Components.ServiceListingOverView
         private IWebElement updatedSkill;
         private IWebElement errorMessageBox;
         private IWebElement cancelBtn;
+        private IWebElement yesBtn;
         public void renderShareSkillInputComponents()
         {
             try
@@ -108,6 +109,11 @@ namespace AutomationSelenium.Pages.Components.ServiceListingOverView
         {
             cancelBtn = driver.FindElement(By.XPath("//input[@value='Cancel']"));
         }
+        public void renderAlertWindowComponent()
+        {
+            yesBtn = driver.FindElement(By.XPath("//button[normalize-space()='Yes']"));
+        }
+
         public void shareSkillDes(ShareSkillAddTestModel skilladd)
         {
             Thread.Sleep(2000);
@@ -129,6 +135,7 @@ namespace AutomationSelenium.Pages.Components.ServiceListingOverView
         }
         public void shareskillType()
         {
+            Thread.Sleep(1000);
             renderTypeComponents();
             servicetypeRadioBtn.Click();
             locationtypeRadioBtn.Click();
@@ -145,6 +152,7 @@ namespace AutomationSelenium.Pages.Components.ServiceListingOverView
 
         public void shareSkillTrade(ShareSkillAddTestModel skilladd)
         {
+            Thread.Sleep(2000);
             renderTradeComponents();
             SkillExchangeRadiobutton.Click();
             skillExchangeTag.SendKeys(skilladd.skillExchange);
@@ -152,6 +160,7 @@ namespace AutomationSelenium.Pages.Components.ServiceListingOverView
         }
         public void shareskillActive()
         {
+            Thread.Sleep(3000);
             renderactiveComponent();
             activeRadioBtn.Click();
             rendersaveComponent();
@@ -160,6 +169,30 @@ namespace AutomationSelenium.Pages.Components.ServiceListingOverView
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             saveButton.Submit();
         }
+        public void clearExistingdata()
+        {
+            try
+            {
+                IWebElement deleteButton = driver.FindElement(By.XPath(".//i[@class='remove icon']"));
+                var deleteButtons = driver.FindElements(By.XPath(".//i[@class='remove icon']"));
+                foreach (var button in deleteButtons)
+                {
+                    button.SendKeys(Keys.Enter);
+                    button.Submit();
+                    Wait.WaitToBeClickable(driver, "XPath", "//button[normalize-space()='Yes']", 12);
+                    renderAlertWindowComponent();
+                    yesBtn.Click();
+
+                }
+
+            }
+            catch (NoSuchElementException)
+            {
+                Console.WriteLine("no items to delete");
+            }
+
+        }
+
         public void shareSkillAdd(ShareSkillAddTestModel skilladd)
         {
 

@@ -24,7 +24,6 @@ namespace AutomationSelenium.Process
             var popupMessageText = messageBox;
 
             string popupMessage = messageBox;
-            Console.WriteLine("messageBox.Text is: " + popupMessage);
             if (popupMessage.Contains("has been deleted"))
             {
                 Console.WriteLine("API Testing has been deleted");

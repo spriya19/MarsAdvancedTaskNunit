@@ -17,51 +17,33 @@ namespace AutomationSelenium.Process
 #pragma warning disable
         ShareSkillAddComponent shareSkillAddComponentObj;
         HomePageProcess homePageProcessObj;
-        Jsonhelper jsonhelperObj;
-        Base baseObj;
         ExtentTest testreport;
         private ExtentReports extent;
 
         public ShareskillProcess()
         {
             shareSkillAddComponentObj = new ShareSkillAddComponent();
-            jsonhelperObj = new Jsonhelper();
             homePageProcessObj = new HomePageProcess();
-            baseObj = new Base();
         }
         public void addShareSkillDetails()
         {
-            baseObj.InitializeExtentReports();
-            string testName = "ShareSkillAddData";
-            baseObj.SetupTest(testName);
             // Read test data from the JSON file using JsonHelper
             string sFile = "ShareSkillAddData.json";
             List<ShareSkillAddTestModel> ShareSkillAddData = Jsonhelper.ReadTestDataFromJson<ShareSkillAddTestModel>(sFile);
             foreach (var data in ShareSkillAddData)
             {
                 string title = data.title;
-                Console.WriteLine(title);
                 string description = data.description;
-                Console.WriteLine(description);
                 string category = data.category;
-                Console.WriteLine(category);
                 string subcategory = data.subcategory;
-                Console.WriteLine(subcategory);
                 string tags = data.tags;
-                Console.WriteLine(tags);
                 string startdate = data.startdate;
-                Console.WriteLine(startdate);
                 string enddate = data.enddate;
-                Console.WriteLine(enddate);
                 string skillExchange = data.skillExchange;
-                Console.WriteLine(skillExchange);
-                string screenshotName = "ShareSkillAddData";
-                baseObj.CaptureScreenshot(screenshotName);
-
+                LogScreenshot("AddShareSkill");
                 shareSkillAddComponentObj.shareSkillAdd(data);
                 homePageProcessObj.clickOnManageListingTab();
                 string addedSkillcategory = shareSkillAddComponentObj.verifSkillCategory();
-
                 if (addedSkillcategory == data.category)
                 {
                     Assert.AreEqual(addedSkillcategory, data.category, "The actual and expected do not match");
@@ -69,8 +51,6 @@ namespace AutomationSelenium.Process
                     {
                         testreport.Log(Status.Pass, "Test Passed");
                     }
-
-
                 }
                 else
                 {
@@ -83,32 +63,20 @@ namespace AutomationSelenium.Process
         }
         public void shareSkillUpdate()
         {
-            baseObj.InitializeExtentReports();
-            string testName = "ShareSkillUpdateData";
-            baseObj.SetupTest(testName);
            // Read test data from the JSON file using JsonHelper
             string sFile = "ShareSkillUpdateData.json";
             List<ShareSkillAddTestModel> ShareSkillUpdateData = Jsonhelper.ReadTestDataFromJson<ShareSkillAddTestModel>(sFile);
             foreach (var data in ShareSkillUpdateData)
             {
                 string title = data.title;
-                Console.WriteLine(title);
                 string description = data.description;
-                Console.WriteLine(description);
                 string category = data.category;
-                Console.WriteLine(category);
                 string subcategory = data.subcategory;
-                Console.WriteLine(subcategory);
                 string tags = data.tags;
-                Console.WriteLine(tags);
                 string startdate = data.startdate;
-                Console.WriteLine(startdate);
                 string enddate = data.enddate;
-                Console.WriteLine(enddate);
                 string skillExchange = data.skillExchange;
-                Console.WriteLine(skillExchange);
-                string screenshotName = "ShareSkillUpdateData";
-                baseObj.CaptureScreenshot(screenshotName);
+                LogScreenshot("shareSkillUpdate");
                 homePageProcessObj.clickOnEditManageListingTab();
                 shareSkillAddComponentObj.EditShareSkill(data);
                 homePageProcessObj.clickOnManageListingTab();
@@ -131,16 +99,12 @@ namespace AutomationSelenium.Process
         }
         public void negativeShareSkillProcess()
         {
-            baseObj.InitializeExtentReports();
-            string testName = "NegativeShareSkill";
-            baseObj.SetupTest(testName);
-          // Read test data from the JSON file using JsonHelper
+           // Read test data from the JSON file using JsonHelper
             string sFile = "NegativeShareSkill.json";
             List<ShareSkillAddTestModel> NegativeShareSkill = Jsonhelper.ReadTestDataFromJson<ShareSkillAddTestModel>(sFile);
             foreach (var data in NegativeShareSkill)
             {
-                string screenshotName = "NegativeShareSkill";
-                baseObj.CaptureScreenshot(screenshotName);
+                LogScreenshot("shareSkilladdNegative");
                 shareSkillAddComponentObj.negativeShareSkill(data);
                 string errorMessageBox = shareSkillAddComponentObj.verifyErrorMessage();
                 string expectedMessage = "Please complete the form correctly.";
@@ -154,16 +118,12 @@ namespace AutomationSelenium.Process
         }
         public void negativeShareskillUpdateProcess()
         {   
-            baseObj.InitializeExtentReports();
-            string testName = "ShareSkillNegativeUpdateData";
-            baseObj.SetupTest(testName);
-           // Read test data from the JSON file using JsonHelper
+            // Read test data from the JSON file using JsonHelper
             string sFile = "ShareSkillNegativeUpdateData.json";
             List<ShareSkillAddTestModel> ShareSkillNegativeUpdateData = Jsonhelper.ReadTestDataFromJson<ShareSkillAddTestModel>(sFile);
             foreach (var data in ShareSkillNegativeUpdateData)
             {
-                string screenshotName = "ShareSkillNegativeUpdateData";
-                baseObj.CaptureScreenshot(screenshotName);
+                LogScreenshot("shareSkillUpdateNegative");
                 homePageProcessObj.clickOnEditManageListingTab();
                 shareSkillAddComponentObj.negativeShareSkillUpdate(data);
                 string errorMessageBox = shareSkillAddComponentObj.verifyErrorMessage();

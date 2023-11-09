@@ -1,8 +1,10 @@
 ﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.DevTools.V117.Page;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +18,9 @@ namespace AutomationSelenium.Utilities
 #pragma warning disable CS8618
         public static IWebDriver driver;
         private static ExtentReports extent;
-        private static ExtentTest test;
+        private static ExtentTest testreport;
         private static ExtentSparkReporter htmlReporter;
+
 
         [SetUp]
         public void SetupAuction()
@@ -25,51 +28,53 @@ namespace AutomationSelenium.Utilities
             driver = new ChromeDriver();
             driver.Navigate().GoToUrl("http://localhost:5000/");
             driver.Manage().Window.Maximize();
-
+            testreport = extent.CreateTest(TestContext.CurrentContext.Test.Name);
         }
-        public void InitializeExtentReports()
+        [OneTimeSetUp]
+        public void SetupReport()
         {
-
             if (extent == null)
             {
                 extent = new ExtentReports();
                 htmlReporter = new ExtentSparkReporter("C:\\ICProject\\AdvancedNunit\\MarsAdvancedTaskNunit\\AutomationSelenium\\Utilities\\Report.html"); // Path to the report file
                 extent.AttachReporter(htmlReporter);
             }
-
         }
-        public void SetupTest(string testName)
+        public void LogScreenshot(string ScreenshotName)
         {
-            test = extent.CreateTest(testName);
-            test.Log(Status.Pass, "Test Passed");
-
-        }
-
-        public void CaptureScreenshot(string screenshotName)
-        {
-            try
+            string screenshotPath = CaptureScreenshot(ScreenshotName);
+            if (testreport != null)
             {
+                testreport.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
+            }
+        }
+
+
+        public static string CaptureScreenshot(string screenshotName)
+        {
+            
+            
                 ITakesScreenshot screenshotDriver = (ITakesScreenshot)driver;
                 Screenshot screenshot = screenshotDriver.GetScreenshot();
                 string screenshotPath = Path.Combine("ScreenshotReport", $"{screenshotName}_{DateTime.Now:yyyyMMddHHmmss}.png");
                 string fullPath = Path.Combine("C:\\ICProject\\AdvancedNunit\\MarsAdvancedTaskNunit\\AutomationSelenium", screenshotPath);
 #pragma warning disable
                 screenshot.SaveAsFile(fullPath, ScreenshotImageFormat.Png);
-                //return fullPath;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error capturing screenshot: " + ex.Message);
-            }
+            
+               return fullPath;
+
 
         }
         [TearDown]
-        public void TearDownAction()
+        public void CloseBrowser()
         {
             driver.Quit();
+        }
+        [OneTimeTearDown]
+        public void TeardownReport()
+        {
             extent.Flush();
         }
-
 
 
 

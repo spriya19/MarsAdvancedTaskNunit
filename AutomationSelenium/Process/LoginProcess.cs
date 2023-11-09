@@ -18,10 +18,8 @@ namespace AutomationSelenium.Process
         LocalPage localPageObj;
         HomePage homePageObj;
         LoginComponent loginComponentObj;
-        Jsonhelper jsonhelperObj;
-        Base baseObj;
         ExtentTest testreport;
-        private ExtentReports extent;
+        //private ExtentReports extent;
 
 
         public LoginProcess()
@@ -29,8 +27,6 @@ namespace AutomationSelenium.Process
             localPageObj = new LocalPage();
             homePageObj = new HomePage();
             loginComponentObj = new LoginComponent();
-            jsonhelperObj = new Jsonhelper();
-            baseObj = new Base();
 
         }
 
@@ -51,24 +47,18 @@ namespace AutomationSelenium.Process
         }
         public void validusernameInvalidPasswordProcess()
         {
-            baseObj.InitializeExtentReports();
-            string testName = "LoginNegativeData";
-            baseObj.SetupTest(testName);
 
             // Read test data from the JSON file using JsonHelper
             string sFile = "LoginNegativeData.json";
             List<LoginTestModel> LoginNegativeData = Jsonhelper.ReadTestDataFromJson<LoginTestModel>(sFile);
             foreach (var data in LoginNegativeData)
             {
-                string email = data.email;
-                string password = data.password;
-                string screenshotName = "LoginNegativeData";
-                baseObj.CaptureScreenshot(screenshotName);
+                LogScreenshot("InValid Login");
+
                 loginComponentObj.validUserInvalidPassword(data);
                 string passwordAlertMessage = loginComponentObj.verifypassAlertMessage();
                 var alertErrorMessage = passwordAlertMessage;
                 string alertMessage = passwordAlertMessage;
-                Console.WriteLine("messageBox.Text is: " + passwordAlertMessage);
                 if (passwordAlertMessage.Contains("Password must be at least 6 characters"))
                 {
                     Console.WriteLine("Password must be at least 6 characters");
@@ -87,23 +77,17 @@ namespace AutomationSelenium.Process
         }
         public void invalidUsernameValidPasswordProcess()
         {
-            baseObj.InitializeExtentReports();
-            string testName = "InvalidUserData";
-            baseObj.SetupTest(testName);
             // Read test data from the JSON file using JsonHelper
             string sFile = ".json";
             List<LoginTestModel> InvalidUserData = Jsonhelper.ReadTestDataFromJson<LoginTestModel>(sFile);
             foreach (var data in InvalidUserData)
             {
-                string email = data.email;
-                string password = data.password;
-                string screenshotName = "InvalidUserData";
-                baseObj.CaptureScreenshot(screenshotName);
+                LogScreenshot("InvaliduserName");
+
                 loginComponentObj.invalidUsernameValidPassword(data);
                 string userNameAlertMessageBox = loginComponentObj.verifyUsernameMessage();
                 var errorMessage = userNameAlertMessageBox;
                 string alertMessage = userNameAlertMessageBox;
-                Console.WriteLine("messagebox.Text is:" + userNameAlertMessageBox);
                 if (userNameAlertMessageBox.Contains("Please enter a valid email address"))
                 {
                     Console.WriteLine("Please enter a valid email address");

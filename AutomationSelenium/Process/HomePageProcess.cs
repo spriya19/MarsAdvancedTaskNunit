@@ -69,5 +69,9 @@ namespace AutomationSelenium.Process
         {
             profileMenuTabObj.clickEditManageListing();
         }
+        public void clickonManageShareSkillTab()
+        {
+            profileMenuTabObj.ClickServiceShareskill();
+        }
     }
 }
