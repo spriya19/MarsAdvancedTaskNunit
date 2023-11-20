@@ -74,21 +74,16 @@ namespace AutomationSelenium.Pages.Components.ProfilePageOverview
         }
         public void clearExistingdata()
         {
-            try
+            IReadOnlyCollection<IWebElement> rows = driver.FindElements(By.XPath("//th[text()='Language']//ancestor::thead//following-sibling::tbody/tr"));
+            if (rows.Count > 0)
             {
-                IWebElement deleteButton = driver.FindElement(By.XPath("//div[2]/div/div[2]/div/table/tbody/tr/td[3]/span[2]/i"));
-                var deleteButtons = driver.FindElements(By.XPath("//div[2]/div/div[2]/div/table/tbody/tr/td[3]/span[2]/i"));
-                foreach (var button in deleteButtons)
+                foreach (IWebElement row in rows)
                 {
-                    button.Click();
+                    IWebElement deleteIcon = row.FindElement(By.XPath("./td[4]/span[2]/i"));
+                    deleteIcon.Click();
+                    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                 }
-
             }
-            catch (NoSuchElementException)
-            {
-                Console.WriteLine("no items to delete");
-            }
-
         }
         public void addNewLanguage(LanguageTestModel data)
         {
@@ -139,12 +134,13 @@ namespace AutomationSelenium.Pages.Components.ProfilePageOverview
             renderLanguageInputComponents();
             languageTxtBox.SendKeys(data.language);
             levelTxtBox.SendKeys(data.level);
-            Wait.WaitToBeClickable(driver, "XPath", "//input[@value='Add']", 12);
+            Wait.WaitToBeClickable(driver, "XPath", "//input[@value='Add']", 30);
             addBtn.Click();
 
         }
         public string negativeLanguagemessage()
         {
+            Thread.Sleep(2000);
             Wait.WaitToBeVisible(driver, "XPath", "//div[@class='ns-box-inner']", 12);
             renderMessageComponent();
             return messageBox.Text;

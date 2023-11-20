@@ -9,8 +9,6 @@ namespace AutomationSelenium.Test_Model
     public class UserNameAvailabilityTestModel
     {
 #pragma warning disable
-        public string firstname { get; set; }
-        public string lastname { get; set; }
-
+        
     }
 }

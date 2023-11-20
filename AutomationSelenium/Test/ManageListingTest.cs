@@ -1,4 +1,5 @@
-﻿using AutomationSelenium.Process;
+﻿using AutomationSelenium.AssertHelpers;
+using AutomationSelenium.Process;
 using AutomationSelenium.Utilities;
 using NUnit.Framework;
 using System;
@@ -15,12 +16,14 @@ namespace AutomationSelenium.Test
         LoginProcess loginProcessObj;
         HomePageProcess homePageProcessObj;
         ManageListingProcess manageListingProcessObj;
+        ShareSkillAssert shareSkillAsserObj;
 
         public ManageListingTest() 
         {
             loginProcessObj = new LoginProcess();
             homePageProcessObj = new HomePageProcess();
             manageListingProcessObj = new ManageListingProcess();
+            shareSkillAsserObj = new ShareSkillAssert();
         }
         [Test,Order(1)]
         public void DeletedManageListing_Test()
@@ -28,6 +31,7 @@ namespace AutomationSelenium.Test
             loginProcessObj.doLogin();
             homePageProcessObj.clickOnProfileManageListing();
             manageListingProcessObj.deleteManageListProcess();
+            shareSkillAsserObj.DeleteShareSkillAssert();
         }
     }
 }

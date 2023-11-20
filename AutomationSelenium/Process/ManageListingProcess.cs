@@ -20,21 +20,7 @@ namespace AutomationSelenium.Process
         public void deleteManageListProcess()
         {
             manageListingComponetObj.deleteManageList();
-            string messageBox = manageListingComponetObj.verifyDeletedList();
-            var popupMessageText = messageBox;
-
-            string popupMessage = messageBox;
-            if (popupMessage.Contains("has been deleted"))
-            {
-                Console.WriteLine("API Testing has been deleted");
-            }
-            else
-            {
-                Console.WriteLine("Check Error");
-            }
-
-            Assert.AreEqual(messageBox, popupMessageText, "Actual message and expected message do not match");
-
+           
         }
     }
 }

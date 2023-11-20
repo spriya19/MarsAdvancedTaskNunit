@@ -32,34 +32,10 @@ namespace AutomationSelenium.Process
             List<ShareSkillAddTestModel> ShareSkillAddData = Jsonhelper.ReadTestDataFromJson<ShareSkillAddTestModel>(sFile);
             foreach (var data in ShareSkillAddData)
             {
-                string title = data.title;
-                string description = data.description;
-                string category = data.category;
-                string subcategory = data.subcategory;
-                string tags = data.tags;
-                string startdate = data.startdate;
-                string enddate = data.enddate;
-                string skillExchange = data.skillExchange;
                 LogScreenshot("AddShareSkill");
                 shareSkillAddComponentObj.shareSkillAdd(data);
                 homePageProcessObj.clickOnManageListingTab();
-                string addedSkillcategory = shareSkillAddComponentObj.verifSkillCategory();
-                if (addedSkillcategory == data.category)
-                {
-                    Assert.AreEqual(addedSkillcategory, data.category, "The actual and expected do not match");
-                    if (testreport != null)
-                    {
-                        testreport.Log(Status.Pass, "Test Passed");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Check Error");
-                }
-
             }
-
-
         }
         public void shareSkillUpdate()
         {
@@ -68,33 +44,11 @@ namespace AutomationSelenium.Process
             List<ShareSkillAddTestModel> ShareSkillUpdateData = Jsonhelper.ReadTestDataFromJson<ShareSkillAddTestModel>(sFile);
             foreach (var data in ShareSkillUpdateData)
             {
-                string title = data.title;
-                string description = data.description;
-                string category = data.category;
-                string subcategory = data.subcategory;
-                string tags = data.tags;
-                string startdate = data.startdate;
-                string enddate = data.enddate;
-                string skillExchange = data.skillExchange;
                 LogScreenshot("shareSkillUpdate");
                 homePageProcessObj.clickOnEditManageListingTab();
                 shareSkillAddComponentObj.EditShareSkill(data);
                 homePageProcessObj.clickOnManageListingTab();
-                string updatedSkill = shareSkillAddComponentObj.verifyUpdatedShareSkill();
-                if (updatedSkill == data.category)
-                {
-                    Assert.AreEqual(updatedSkill, data.category, "The actual and expected do not match");
-                    if (testreport != null)
-                    {
-                        testreport.Log(Status.Pass, "Test Passed");
-                    }
-
-                }
-                else
-                {
-                    Console.WriteLine("Check Error");
-                }
-
+                
             }
         }
         public void negativeShareSkillProcess()
@@ -106,14 +60,7 @@ namespace AutomationSelenium.Process
             {
                 LogScreenshot("shareSkilladdNegative");
                 shareSkillAddComponentObj.negativeShareSkill(data);
-                string errorMessageBox = shareSkillAddComponentObj.verifyErrorMessage();
-                string expectedMessage = "Please complete the form correctly.";
-                Assert.AreEqual(errorMessageBox, expectedMessage, "Actual and expected do not match");
-                if (testreport != null)
-                {
-                    testreport.Log(Status.Pass, "Test Passed");
-                }
-
+                
             }
         }
         public void negativeShareskillUpdateProcess()
@@ -126,15 +73,6 @@ namespace AutomationSelenium.Process
                 LogScreenshot("shareSkillUpdateNegative");
                 homePageProcessObj.clickOnEditManageListingTab();
                 shareSkillAddComponentObj.negativeShareSkillUpdate(data);
-                string errorMessageBox = shareSkillAddComponentObj.verifyErrorMessage();
-                string expectedMessage = "Please complete the form correctly.";
-                Assert.AreEqual(errorMessageBox, expectedMessage, "Actual and expected do not match");
-                if (testreport != null)
-                {
-                    testreport.Log(Status.Pass, "Test Passed");
-                }
-
-
             }
         }
     }

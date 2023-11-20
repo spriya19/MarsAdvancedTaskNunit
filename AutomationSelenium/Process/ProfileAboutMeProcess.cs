@@ -24,15 +24,10 @@ namespace AutomationSelenium.Process
         {
             // Read test data from the JSON file using JsonHelper
             string sFile = "UserNameAvailabilityData.json";
-            List<UserNameAvailabilityTestModel> UserNameAvailabilityData = Jsonhelper.ReadTestDataFromJson<UserNameAvailabilityTestModel>(sFile);
-            foreach(var profile in UserNameAvailabilityData) 
+            List<ProfileAvailabilityTestModel> UserNameAvailabilityData = Jsonhelper.ReadTestDataFromJson<ProfileAvailabilityTestModel>(sFile);
+            foreach(var user in UserNameAvailabilityData) 
             {
-                string firstname = profile.firstname;
-                string lastname = profile.lastname;
-                profileAboutMeObj.usernameAvailabilityDetails(firstname, lastname);
-                string addedUserName = profileAboutMeObj.getVerifyUserName(); 
-                string expectedUsername = profile.firstname + " " + profile.lastname;
-                Assert.AreEqual(expectedUsername, addedUserName, "Actual Username do not match");
+                profileAboutMeObj.usernameAvailabilityDetails(user);
             }
 
         }
@@ -43,9 +38,8 @@ namespace AutomationSelenium.Process
             foreach (var profile in ProfileavailabilityData)
             {
                 string availability = profile.availability;
-                profileAboutMeObj.addAndUpdateAvailabilityDetails(availability);
-                string addedAvailability = profileAboutMeObj.getAddedAvailability();
-                Assert.AreEqual(addedAvailability, availability,"Actual availability and Expected availability do not match");
+                profileAboutMeObj.addAndUpdateAvailabilityDetails(profile);
+                
             }
         }
         public void updateAvailabilityHours()
@@ -55,9 +49,7 @@ namespace AutomationSelenium.Process
             foreach (var profile in profileHourDataData)
             {
                 string hours = profile.hours;
-                profileAboutMeObj.addAndUpdateHourDetails(hours);
-                string addedHours = profileAboutMeObj.getAddedHours();
-                Assert.AreEqual(addedHours, hours, "Actual availability and Expected availability do not match");
+                profileAboutMeObj.addAndUpdateHourDetails(profile);
             }
         }
         public void updatedAvailabilityEarnTarget()
@@ -67,9 +59,8 @@ namespace AutomationSelenium.Process
             foreach (var profile in ProfileEarnTargetData)
             {
                 string earntarget = profile.earntarget;
-                profileAboutMeObj.addAndUpdateAvailabilityTargetDetails(earntarget);
-                string addedEarnTarget = profileAboutMeObj.getAddedEarntarget();
-                Assert.AreEqual(addedEarnTarget, earntarget, "Actual availability and Expected availability do not match");
+                profileAboutMeObj.addAndUpdateAvailabilityTargetDetails(profile);
+               
             }
         }
 

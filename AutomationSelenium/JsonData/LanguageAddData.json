@@ -1,16 +1,23 @@
 ﻿[
   {
-    "language": "English",
+    "language": "Sql",
     "level": "Conversational"
   },
+  {
+    "language": "Manual",
+    "level": "Basic"
+
+  },
+
   {
     "language": "Java",
     "level": "Basic"
   },
   {
-    "language": "API",
+    "language": "English",
     "level": "Basic"
   }
 
-  
- ]
+
+
+]

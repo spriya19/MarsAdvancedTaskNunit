@@ -15,9 +15,7 @@ namespace AutomationSelenium.Process
     {
 #pragma warning disable
         DescriptionComponent descriptionComponentObj;
-        ExtentTest testreport;
-       private ExtentReports extent;
-
+        
         public DescriptionProcess()
         {
             descriptionComponentObj = new DescriptionComponent();
@@ -29,15 +27,9 @@ namespace AutomationSelenium.Process
             List<DescriptionTestModel> DescriptionData = Jsonhelper.ReadTestDataFromJson<DescriptionTestModel>(sFile);
             foreach (var data in DescriptionData)
             {
-                string textarea = data.textarea;
                 LogScreenshot("AddDescription");
                  descriptionComponentObj.addAndUpdateDescriptionDetails(data);
-                string addedDescription = descriptionComponentObj.getVerifyAddedDescription();
-                Assert.AreEqual(addedDescription, textarea, "Actual text and expected text do not match");
-               if (testreport != null)
-               {
-                    testreport.Log(Status.Pass, "Test Passed");
-               }
+                
             }
 
 
@@ -52,27 +44,6 @@ namespace AutomationSelenium.Process
                 LogScreenshot("AddNeagtiveDescription");
 
                 descriptionComponentObj.addNegativedes(data);
-                string messageBox = descriptionComponentObj.negativeDesMessage();
-                var popupMessageText = messageBox;
-
-
-                string expectedMessage1 = "First character can only be digit or letters";
-
-                if (popupMessageText == expectedMessage1)
-                {
-                    Thread.Sleep(2000);
-                    Console.WriteLine(expectedMessage1);
-                }
-                else
-                {
-                    Console.WriteLine("Check Error");
-                }
-
-                Assert.AreEqual(messageBox, popupMessageText, "Actual message and expected message do not match");
-                if (testreport != null)
-                {
-                    testreport.Log(Status.Pass, "Test Passed");
-                }
             }
         }
         public void deleteDescription()
@@ -84,24 +55,6 @@ namespace AutomationSelenium.Process
                 LogScreenshot("DeleteDescription");
 
                 descriptionComponentObj.deleteDesc(data);
-                string deletePopupMessage = descriptionComponentObj.verifyPopupMessage();
-                var popupMessageText = deletePopupMessage;
-                string expectedMessage1 = "Please, a description is required";
-
-                if (popupMessageText == expectedMessage1)
-                {
-                    Console.WriteLine(expectedMessage1);
-                }
-                else
-                {
-                    Console.WriteLine("Check Error");
-                }
-                Assert.AreEqual(deletePopupMessage, popupMessageText, "Actual message and expected message do not match");
-                if (testreport != null)
-                {
-                    testreport.Log(Status.Pass, "Test Passed");
-                }
-
             }
 
         }

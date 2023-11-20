@@ -1,4 +1,5 @@
-﻿using AutomationSelenium.Pages.Components.ServiceListingOverView;
+﻿using AutomationSelenium.AssertHelpers;
+using AutomationSelenium.Pages.Components.ServiceListingOverView;
 using AutomationSelenium.Process;
 using AutomationSelenium.Utilities;
 using NUnit.Framework;
@@ -17,12 +18,14 @@ namespace AutomationSelenium.Test
         HomePageProcess homePageProcessObj;
         ShareSkillAddComponent ShareSkillAddComponentObj;
         ShareskillProcess shareskillProcessObj;
+        ShareSkillAssert shareSkillAssertObj;
         public ShareSkillTest() 
         {
             loginProcessObj = new LoginProcess();
             homePageProcessObj = new HomePageProcess();
             ShareSkillAddComponentObj = new ShareSkillAddComponent();
             shareskillProcessObj = new ShareskillProcess();
+            shareSkillAssertObj = new ShareSkillAssert();
         }
         [Test,Order(1)]
         public void AddShareSkill_Test()
@@ -32,6 +35,7 @@ namespace AutomationSelenium.Test
             ShareSkillAddComponentObj.clearExistingdata();
             homePageProcessObj.clickonManageShareSkillTab();
             shareskillProcessObj.addShareSkillDetails();
+            shareSkillAssertObj.addShareSkillAssert();
         }
         [Test,Order(2)]
         public void UpdateShareSkill_Test()
@@ -39,14 +43,17 @@ namespace AutomationSelenium.Test
             loginProcessObj.doLogin();
             homePageProcessObj.clickOnProfileManageListing();
             shareskillProcessObj.shareSkillUpdate();
+            shareSkillAssertObj.shareSkillUpdateAssert();
 
         }
+        
         [Test,Order(3)]
         public void NegativeShareSkill_Test()
         {
             loginProcessObj.doLogin();
             homePageProcessObj.clickShareskill();
             shareskillProcessObj.negativeShareSkillProcess();
+            shareSkillAssertObj.negativeShareSkillAssert();
 
         }
         [Test,Order(4)]
@@ -55,6 +62,7 @@ namespace AutomationSelenium.Test
             loginProcessObj.doLogin();
             homePageProcessObj.clickOnProfileManageListing();
             shareskillProcessObj.negativeShareskillUpdateProcess();
+            shareSkillAssertObj.negativeShareskillUpdateAssert();
 
         }
 

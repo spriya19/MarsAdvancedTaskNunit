@@ -40,10 +40,7 @@ namespace AutomationSelenium.Process
 
                 localPageObj.clickSingIn();
                 loginComponentObj.validLogin(data);
-                string userNameLabel = homePageObj.VerifyUserName();
-                string expectedUserName = "Hi "+ data.firstname;
-                Assert.AreEqual(userNameLabel, expectedUserName, "Actual and expected do not match");
-            }
+            }   
         }
         public void validusernameInvalidPasswordProcess()
         {

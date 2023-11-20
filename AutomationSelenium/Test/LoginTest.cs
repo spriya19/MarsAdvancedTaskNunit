@@ -1,4 +1,5 @@
-﻿using AutomationSelenium.Pages;
+﻿using AutomationSelenium.AssertHelpers;
+using AutomationSelenium.Pages;
 using AutomationSelenium.Pages.Components.signin;
 using AutomationSelenium.Process;
 using AutomationSelenium.Test_Model;
@@ -17,20 +18,20 @@ namespace AutomationSelenium.Test
     public class LoginTest : Base
     {
         LocalPage localPageObj;
-        LoginProcess loginProcessObj; 
-        HomePageProcess homePageProcessObj;
-
+        LoginProcess loginProcessObj;
+        LoginAssert loginAssertObj; 
         public LoginTest()
         {
             loginProcessObj = new LoginProcess();
             localPageObj = new LocalPage();
-
+            loginAssertObj = new LoginAssert();
         }
 
         [Test , Order(1)]
         public void givenLoginCreds_whenDoLogin_thenIsLoggedIn_Test()
         {
             loginProcessObj.doLogin();
+            loginAssertObj.LoginAssertion();
         }
         [Test , Order(2)]
         public void givenValidUserNameinvalidPassword_Test()

@@ -48,12 +48,8 @@ namespace AutomationSelenium.Utilities
                 testreport.Log(Status.Info, "Screenshot", MediaEntityBuilder.CreateScreenCaptureFromPath(screenshotPath).Build());
             }
         }
-
-
         public static string CaptureScreenshot(string screenshotName)
         {
-            
-            
                 ITakesScreenshot screenshotDriver = (ITakesScreenshot)driver;
                 Screenshot screenshot = screenshotDriver.GetScreenshot();
                 string screenshotPath = Path.Combine("ScreenshotReport", $"{screenshotName}_{DateTime.Now:yyyyMMddHHmmss}.png");
@@ -62,8 +58,6 @@ namespace AutomationSelenium.Utilities
                 screenshot.SaveAsFile(fullPath, ScreenshotImageFormat.Png);
             
                return fullPath;
-
-
         }
         [TearDown]
         public void CloseBrowser()

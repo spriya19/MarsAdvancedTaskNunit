@@ -177,8 +177,7 @@ namespace AutomationSelenium.Pages.Components.ServiceListingOverView
                 var deleteButtons = driver.FindElements(By.XPath(".//i[@class='remove icon']"));
                 foreach (var button in deleteButtons)
                 {
-                    button.SendKeys(Keys.Enter);
-                    button.Submit();
+                    button.Click();
                     Wait.WaitToBeClickable(driver, "XPath", "//button[normalize-space()='Yes']", 12);
                     renderAlertWindowComponent();
                     yesBtn.Click();

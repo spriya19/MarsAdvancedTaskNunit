@@ -1,4 +1,5 @@
-﻿using AutomationSelenium.Utilities;
+﻿using AutomationSelenium.Test_Model;
+using AutomationSelenium.Utilities;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -73,13 +74,13 @@ namespace AutomationSelenium.Pages.Components.ProfilePageOverview
         {
             message = driver.FindElement(By.XPath("//div[@class='ns-box-inner']"));
         }
-        public void usernameAvailabilityDetails(string firstname,string lastname)
+        public void usernameAvailabilityDetails(ProfileAvailabilityTestModel user)
         {
             renderUserComponents();
             enterFirstname.Clear();
-            enterFirstname.SendKeys(firstname);
+            enterFirstname.SendKeys(user.firstname);
             enterLastname.Clear();
-            enterLastname.SendKeys(lastname);
+            enterLastname.SendKeys(user.lastname);
             saveBtn.Click();
         }
         public string getVerifyUserName()
@@ -87,10 +88,10 @@ namespace AutomationSelenium.Pages.Components.ProfilePageOverview
             renderAddTestComponent();
             return addedUserName.Text;
         }
-        public void addAndUpdateAvailabilityDetails(string availability)
+        public void addAndUpdateAvailabilityDetails(ProfileAvailabilityTestModel profile)
         {
             renderavailabilityTypeComponent();
-            availabilityType.SendKeys(availability);
+            availabilityType.SendKeys(profile.availability);
         }
         public string getAddedAvailability()
         {
@@ -104,20 +105,20 @@ namespace AutomationSelenium.Pages.Components.ProfilePageOverview
             //Saving error or Success message
             return message.Text;
         }
-        public void addAndUpdateHourDetails(string hour)
+        public void addAndUpdateHourDetails(ProfileAvailabilityTestModel profile)
         {
             renderAvailabilityHourComponent();
-            availabilityHour.SendKeys(hour);
+            availabilityHour.SendKeys(profile.hours);
         }
         public string getAddedHours()
         { 
             renderHoursTestComponent();
             return addedHours.Text;
         }
-        public void addAndUpdateAvailabilityTargetDetails(string earntarget)
+        public void addAndUpdateAvailabilityTargetDetails(ProfileAvailabilityTestModel profile)
         {
             renderavailabilityEarnTargetComponent();
-            availabilityTarget.SendKeys(earntarget);
+            availabilityTarget.SendKeys(profile.earntarget);
         }
         public string getAddedEarntarget()
         {

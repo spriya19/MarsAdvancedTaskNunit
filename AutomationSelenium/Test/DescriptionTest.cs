@@ -1,4 +1,5 @@
-﻿using AutomationSelenium.Pages.Components.ProfilePageOverview;
+﻿using AutomationSelenium.AssertHelpers;
+using AutomationSelenium.Pages.Components.ProfilePageOverview;
 using AutomationSelenium.Process;
 using AutomationSelenium.Utilities;
 using NUnit.Framework;
@@ -16,12 +17,15 @@ namespace AutomationSelenium.Test
         LoginProcess loginProcessObj;
         HomePageProcess homePageProcessObj;
         DescriptionProcess descriptionProcessObj;
+        DescriptionAssert descriptionAssertObj;
 
         public DescriptionTest()
         {
             loginProcessObj  = new LoginProcess();
             homePageProcessObj = new HomePageProcess();
             descriptionProcessObj = new DescriptionProcess();
+            descriptionAssertObj = new DescriptionAssert();
+
         }
         [Test,Order(1)]
         public void updatedUserDescription_Test()
@@ -29,6 +33,7 @@ namespace AutomationSelenium.Test
             loginProcessObj.doLogin();
             homePageProcessObj.clickOnDescriptionEditBtn();
             descriptionProcessObj.updatedDescription();
+            descriptionAssertObj.updatedDescriptionAssert();
         }
         [Test,Order(2)]
         public void deletedDescription_Test() 
@@ -36,6 +41,7 @@ namespace AutomationSelenium.Test
             loginProcessObj.doLogin();
             homePageProcessObj.clickOnDescriptionEditBtn();
             descriptionProcessObj.deleteDescription();
+            descriptionAssertObj.deleteDescriptionAssert();
         }
         [Test,Order(3)]
         public void negativeDescri_Test()
@@ -43,6 +49,7 @@ namespace AutomationSelenium.Test
             loginProcessObj.doLogin();
             homePageProcessObj.clickOnDescriptionEditBtn();
             descriptionProcessObj.addNegativeDescri();
+            descriptionAssertObj.NegativeDescriAssert();
         }
 
     }
