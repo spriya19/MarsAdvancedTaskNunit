@@ -1,0 +1,23 @@
+﻿[
+  {
+    "language": "Sql",
+    "level": "Conversational"
+  },
+  {
+    "language": "Manual",
+    "level": "Basic"
+
+  },
+
+  {
+    "language": "Java",
+    "level": "Basic"
+  },
+  {
+    "language": "English",
+    "level": "Basic"
+  }
+
+
+
+]
